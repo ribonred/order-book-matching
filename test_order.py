@@ -28,7 +28,7 @@ class TestOrderBook(unittest.TestCase):
     def test_match_orders(self):
         self.exchange.add_order(self.buy_order)
         self.exchange.add_order(self.sell_order)
-        self.exchange.match_orders()
+        self.exchange.order_book.match_orders()
         self.assertEqual(self.buy_order.status, 'matched')
         self.assertEqual(self.sell_order.status, 'matched')
 

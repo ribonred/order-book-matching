@@ -25,7 +25,7 @@ class Order:
 
 class OrderBook:
     def __init__(self):
-        self.orders = []
+        self.orders : list[Order] = []
 
     def add_order(self, order):
         self.orders.append(order)
@@ -39,21 +39,21 @@ class OrderBook:
 
 class Exchange:
     def __init__(self):
-        self.order_book = []
+        self.order_book: list[OrderBook] = []
 
-    def add_order(self, order):
+    def add_order(self, order: OrderBook):
         self.order_book.append(order)
 
     def match_orders(self):
         for buy_order in [
             order
             for order in self.order_book
-            if order.type == "buy" and order.status == "open"
+            if order.side == Side.BUY and order.status == "open"
         ]:
             for sell_order in [
                 order
                 for order in self.order_book
-                if order.type == "sell"
+                if order.side == Side.SELL
                 and order.status == "open"
                 and order.instrument_id == buy_order.instrument_id
             ]:

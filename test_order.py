@@ -13,7 +13,7 @@ class TestOrderBook(unittest.TestCase):
 
     def test_add_order(self):
         self.exchange.add_order(self.buy_order)
-        self.assertIn(self.buy_order, self.exchange.order_book)
+        self.assertIn(self.buy_order, self.exchange.order_book.orders)
 
     def test_remove_order(self):
         self.order_book.add_order(self.buy_order)

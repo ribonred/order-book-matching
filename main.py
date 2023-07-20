@@ -37,23 +37,29 @@ class OrderBook:
         return sum(order.total_price for order in self.orders)
 
 
-class Exchange:
+class OrderBook:
     def __init__(self):
-        self.order_book: list[OrderBook] = []
+        self.orders : list[Order] = []
 
-    def add_order(self, order: OrderBook):
-        self.order_book.append(order)
+    def add_order(self, order):
+        self.orders.append(order)
+
+    def remove_order(self, order_id):
+        self.orders = [order for order in self.orders if order.id != order_id]
+
+    def get_total_value(self):
+        return sum(order.total_price for order in self.orders)
 
     def match_orders(self):
         for buy_order in [
             order
-            for order in self.order_book
-            if order.side == Side.BUY and order.status == "open"
+            for order in self.orders
+            if order.side == Side.BUY.value and order.status == "open"
         ]:
             for sell_order in [
                 order
-                for order in self.order_book
-                if order.side == Side.SELL
+                for order in self.orders
+                if order.side == Side.SELL.value
                 and order.status == "open"
                 and order.instrument_id == buy_order.instrument_id
             ]:
@@ -61,3 +67,10 @@ class Exchange:
                     buy_order.status = "matched"
                     sell_order.status = "matched"
                     break
+
+class Exchange:
+    def __init__(self):
+        self.order_book: OrderBook = OrderBook()
+
+    def add_order(self, order: Order):
+        self.order_book.add_order(order)

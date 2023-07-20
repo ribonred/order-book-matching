@@ -16,14 +16,14 @@ class TestOrderBook(unittest.TestCase):
         self.assertIn(self.buy_order, self.exchange.order_book)
 
     def test_remove_order(self):
-        self.exchange.add_order(self.buy_order)
-        self.exchange.remove_order(self.buy_order.id)
-        self.assertNotIn(self.buy_order, self.exchange.order_book)
+        self.order_book.add_order(self.buy_order)
+        self.order_book.remove_order(self.buy_order.id)
+        self.assertNotIn(self.buy_order, self.order_book.orders)
 
     def test_get_total_value(self):
-        self.exchange.add_order(self.buy_order)
+        self.order_book.add_order(self.buy_order)
         expected_total_value = self.buy_order.total_price
-        self.assertEqual(self.exchange.get_total_value(), expected_total_value)
+        self.assertEqual(self.order_book.get_total_value(), expected_total_value)
 
     def test_match_orders(self):
         self.exchange.add_order(self.buy_order)

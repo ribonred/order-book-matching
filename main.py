@@ -1,9 +1,9 @@
-from enum import StrEnum
+from enum import Enum
 
 
-class Side(StrEnum):
-    BUY = "buy"
-    SELL = "sell"
+class Side(Enum):
+    BUY = "BUY"
+    SELL = "SELL"
 
 
 class Instrument:
@@ -18,7 +18,7 @@ class Order:
         self.id = id
         self.instrument_id = instrument
         self.quantity = quantity
-        self.side = side
+        self.side = side.value
         self.status = "open"
         self.total_price = None
 

@@ -1,5 +1,5 @@
 import unittest
-from main import Instrument, Order, OrderBook, Side
+from main import Instrument, Order, OrderBook, Side, Exchange
 
 class TestOrderBook(unittest.TestCase):
     def setUp(self):

@@ -1,13 +1,13 @@
-class Service:
+class Instrument:
     def __init__(self, id, name, price):
         self.id = id
         self.name = name
         self.price = price
 
 class Order:
-    def __init__(self, id, service_id, quantity):
+    def __init__(self, id, instrument_id, quantity):
         self.id = id
-        self.service_id = service_id
+        self.instrument_id = instrument_id
         self.quantity = quantity
         self.total_price = None
 

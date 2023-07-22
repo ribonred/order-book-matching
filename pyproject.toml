@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "newproject"
+name = "order-book-matching"
 version = "0.1.0"
 description = ""
 authors = ["ribonred <ribonred@gmail.com>"]

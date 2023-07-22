@@ -1,35 +1,19 @@
-import socket
-import pickle
+import uuid
+import random
+from main import Exchange, Instrument, Order, Side
 
+BTC = Instrument("1", "BitCoin")
 
+sides = [Side.BUY, Side.SELL]
+ex = Exchange()
 
-class MyClass:
-    def __init__(self, value):
-        self.value = value
-
-def start_client():
-    # create a socket object
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    # get local machine name
-    host = socket.gethostname()
-
-    port = 9999
-
-    # connection to hostname on the port.
-    client_socket.connect((host, port))
-
-    # create an object
-    my_obj = MyClass("Hello")
-
-    # serialize the object
-    my_obj_bytes = pickle.dumps(my_obj)
-
-    # send the serialized object to the server
-    client_socket.send(my_obj_bytes)
-
-    # close the connection
-    client_socket.close()
-
-start_client()
+for _ in range(100):
+    side = sides[random.randint(0, 1)]
+    qty = random.randint(1, 15)
+    price = random.randrange(1000, 1100)
+    order = Order(uuid.uuid4().hex, BTC, side=side, quantity=qty, price=price)
+    ex.add_order(order, socket=False)
+ex.print_book()
+ex.order_book.match_orders()
+ex.print_book()
 
